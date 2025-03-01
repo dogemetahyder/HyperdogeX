@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HyperDogeX - The Future of Meme Crypto</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a20;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #0a0a20 0%, #1a1a4a 100%);
+            transition: opacity 1s ease;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #8a2be2, 0 0 20px #8a2be2;
+            background: linear-gradient(90deg, #ff6b6b, #5e60ce);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 800px;
+            line-height: 1.6;
+        }
+        
+        .cta {
+            background: linear-gradient(90deg, #5e60ce, #8a2be2);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        }
+        
+        .cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.6);
+            background: linear-gradient(90deg, #8a2be2, #5e60ce);
+        }
+        
+        .space-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at bottom, #1a1a4a 0%, #0a0a20 100%);
+            overflow: hidden;
+            z-index: -1;
+            display: none;
+        }
+        
+        .ship {
+            position: absolute;
+            top: 0;
+            font-size: 2rem;
+            animation: fly 10s linear infinite;
+            transform: rotate(45deg);
+        }
+        
+        @keyframes fly {
+            0% {
+                top: 110%;
+                opacity: 1;
+            }
+            100% {
+                top: -10%;
+                opacity: 0;
+            }
+        }
+        
+        .price-ticker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(10, 10, 32, 0.9);
+            color: white;
+            display: none;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.4);
+            z-index: 100;
+        }
+        
+        .ticker-content {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 0 20px;
+            animation: ticker 30s linear infinite;
+        }
+        
+        @keyframes ticker {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+        
+        .ticker-item {
+            margin-right: 30px;
+            font-weight: bold;
+        }
+        
+        .ticker-item span {
+            margin-right: 5px;
+        }
+        
+        .up {
+            color: #4caf50;
+        }
+        
+        .down {
+            color: #f44336;
+        }
+        
+        .nav-menu {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(10, 10, 32, 0.9);
+            display: none;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-top: 1px solid rgba(138, 43, 226, 0.4);
+            z-index: 100;
+        }
+        
+        .nav-item {
+            cursor: pointer;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item:hover {
+            background-color: rgba(138, 43, 226, 0.2);
+        }
+        
+        .nav-item.active {
+            background-color: #8a2be2;
+            color: white;
+        }
+        
+        .section {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            padding: 120px 20px 100px;
+            min-height: 100vh;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+            background: linear-gradient(90deg, #ff6b6b, #5e60ce);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+        
+        .card {
+            background: rgba(30, 30, 60, 0.6);
+            border-radius: 15px;
+            padding: 20px;
+            width: 280px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.4);
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #8a2be2;
+        }
+        
+        .progress-bar {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            height: 10px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            background: linear-gradient(90deg, #5e60ce, #8a2be2);
+            height: 100%;
+            border-radius: 10px;
+        }
+        
+        .roadmap {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            width: 100%;
+            max-width: 800px;
+        }
+        
+        .roadmap-item {
+            display: flex;
+            gap: 20px;
+            background: rgba(30, 30, 60, 0.6);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+        }
+        
+        .roadmap-icon {
+            font-size: 2.5rem;
+        }
+        
+        .roadmap-content {
+            flex: 1;
+        }
+        
+        .roadmap-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #8a2be2;
+        }
+        
+        .roadmap-content p {
+            margin-bottom: 10px;
+        }
+        
+        .team-member {
+            background: rgba(30, 30, 60, 0.6);
+            border-radius: 15px;
+            padding: 20px;
+            width: 280px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.4);
+        }
+        
+        .team-avatar {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .team-name {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: #8a2be2;
+        }
+        
+        .team-role {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: #ff6b6b;
+        }
+        
+        .airdrop-form {
+            background: rgba(30, 30, 60, 0.6);
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            margin-top: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            background-color: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #8a2be2;
+            box-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+        }
+        
+        /* Add stars to the background */
+        .space-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle, white 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.5;
+        }
+        
+        /* Modal for NFT details */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: rgba(30, 30, 60, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 25px rgba(138, 43, 226, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(138, 43, 226, 0.5);
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: #ff6b6b;
+            transform: scale(1.2);
+        }
+        
+        .nft-icon {
+            font-size: 6rem;
+            margin: 20px 0;
+        }
+        
+        .success-message {
+            display: none;
+            background-color: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4CAF50;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            
+            .card-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .card, .team-member {
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            .roadmap-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+            }
+            
+            .nav-item {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContent">
+        <h1>HyperDogeX</h1>
+        <p>The meme crypto of the future! Fast, fun, and ready to dominate the digital universe.</p>
+        <button class="cta" onclick="enterFuturisticWorld()">Join the Future</button>
+    </div>
+    <div class="space-container" id="spaceContainer"></div>
+
+    <!-- Price Ticker -->
+    <div class="price-ticker" id="priceTicker" style="display: none;">
+        <div class="ticker-content">
+            <div class="ticker-item">
+                <span>BTC</span>
+                <span class="up">$52,432 (+2.4%)</span>
+            </div>
+            <div class="ticker-item">
+                <span>ETH</span>
+                <span class="up">$2,874 (+1.7%)</span>
+            </div>
+            <div class="ticker-item">
+                <span>DOGE</span>
+                <span class="up">$0.12 (+5.3%)</span>
+            </div>
+            <div class="ticker-item">
+                <span>HDGX</span>
+                <span class="up">$0.00042069 (+420%)</span>
+            </div>
+            <div class="ticker-item">
+                <span>BNB</span>
+                <span class="down">$320 (-0.8%)</span>
+            </div>
+            <div class="ticker-item">
+                <span>SOL</span>
+                <span class="up">$88 (+3.2%)</span>
+            </div>
+            <div class="ticker-item">
+                <span>ADA</span>
+                <span class="down">$0.42 (-1.2%)</span>
+            </div>
+            <div class="ticker-item">
+                <span>SHIB</span>
+                <span class="up">$0.000032 (+15%)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <div class="nav-menu" id="navMenu">
+        <div class="nav-item active" onclick="showSection('home')">Home</div>
+        <div class="nav-item" onclick="showSection('tokenomics')">Tokenomics</div>
+        <div class="nav-item" onclick="showSection('roadmap')">Roadmap</div>
+        <div class="nav-item" onclick="showSection('nfts')">NFTs</div>
+        <div class="nav-item" onclick="showSection('team')">Team</div>
+        <div class="nav-item" onclick="showSection('airdrop')">Airdrop</div>
+    </div>
+
+    <!-- Sections -->
+    <div class="section" id="homeSection" style="display: flex;">
+        <h2 class="section-title">Welcome to HyperDogeX</h2>
+        <p>HyperDogeX is the next evolution in meme cryptocurrencies, combining the fun of meme culture with cutting-edge blockchain technology.</p>
+        <p>Our mission is to build a vibrant community-driven token that provides real utility and exciting opportunities for our holders.</p>
+        <div class="card-container">
+            <div class="card">
+                <h3 class="card-title">Hyper Fast</h3>
+                <div style="font-size: 3rem; margin: 20px 0;">⚡</div>
+                <p>Lightning-fast transactions with minimal fees</p>
+            </div>
+            <div class="card">
+                <h3 class="card-title">Community Driven</h3>
+                <div style="font-size: 3rem; margin: 20px 0;">👥</div>
+                <p>Governed by our passionate community</p>
+            </div>
+            <div class="card">
+                <h3 class="card-title">Deflationary</h3>
+                <div style="font-size: 3rem; margin: 20px 0;">🔥</div>
+                <p>Burns with every transaction to increase scarcity</p>
+            </div>
+            <div class="card">
+                <h3 class="card-title">Rewarding</h3>
+                <div style="font-size: 3rem; margin: 20px 0;">💰</div>
+                <p>Holders earn passive income through redistribution</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="tokenomicsSection">
+        <h2 class="section-title">HyperDogeX Tokenomics</h2>
+        <div class="card-container">
+            <div class="card">
+                <h3 class="card-title">Total Supply</h3>
+                <p>420,690,000,000 HDGX</p>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+            </div>
+            <div class="card">
+                <h3 class="card-title">Token Distribution</h3>
+                <p>40% - Presale</p>
+                <p>20% - Liquidity</p>
+                <p>15% - Development</p>
+                <p>10% - Marketing</p>
+                <p>10% - Team (locked 1 year)</p>
+                <p>5% - Airdrops</p>
+            </div>
+            <div class="card">
+                <h3 class="card-title">Transaction Tax</h3>
+                <p>3% - Redistribution to Holders</p>
+                <p>2% - Liquidity Pool</p>
+                <p>2% - Marketing Wallet</p>
+                <p>1% - Burned Forever</p>
+            </div>
+            <div class="card">
+                <h3 class="card-title">Contract Address</h3>
+                <p style="word-break: break-all; font-size: 0.8rem;">0x42069DOGE420690123456789ABCDEF0123456789</p>
+                <button class="cta" style="font-size: 0.8rem; padding: 5px 10px; margin-top: 10px;" onclick="copyAddress()">Copy</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="roadmapSection">
+        <h2 class="section-title">Roadmap to Mars</h2>
+        <div class="roadmap">
+            <div class="roadmap-item">
+                <div class="roadmap-icon">🚀</div>
+                <div class="roadmap-content">
+                    <h3 class="roadmap-title">Phase 1: Launch (Q1 2025)</h3>
+                    <p>✅ Website Launch</p>
+                    <p>✅ Social Media Setup</p>
+                    <p>✅ Community Building</p>
+                    <p>✅ Smart Contract Audit</p>
+                    <p>🔄 Presale</p>
+                    <p>🔄 Token Launch</p>
+                </div>
+            </div>
+            <div class="roadmap-item">
+                <div class="roadmap-icon">🌎</div>
+                <div class="roadmap-content">
+                    <h3 class="roadmap-title">Phase 2: Orbit (Q2 2025)</h3>
+                    <p>🔜 CoinGecko Listing</p>
+                    <p>🔜 CoinMarketCap Listing</p>
+                    <p>🔜 5,000 Holders</p>
+                    <p>🔜 Community Events</p>
+                    <p>🔜 Marketing Campaigns</p>
+                </div>
+            </div>
+            <div class="roadmap-item">
+                <div class="roadmap-icon">🛸</div>
+                <div class="roadmap-content">
+                    <h3 class="roadmap-title">Phase 3: Interstellar (Q3 2025)</h3>
+                    <p>🔜 NFT Collection Launch</p>
+                    <p>🔜 Tier 2 Exchange Listings</p>
+                    <p>🔜 25,000 Holders</p>
+                    <p>🔜 Strategic Partnerships</p>
+                    <p>🔜 Staking Platform</p>
+                </div>
+            </div>
+            <div class="roadmap-item">
+                <div class="roadmap-icon">🪐</div>
+                <div class="roadmap-content">
+                    <h3 class="roadmap-title">Phase 4: Galactic (Q4 2025)</h3>
+                    <p>🔜 100,000 Holders</p>
+                    <p>🔜 Major Exchange Listings</p>
+                    <p>🔜 HyperDogeX Metaverse</p>
+                    <p>🔜 Play-to-Earn Game</p>
+                    <p>🔜 Charity Initiatives</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="nftsSection">
+        <h2 class="section-title">HyperDogeX NFT Collection</h2>
+        <p>Exclusive digital assets for the HyperDogeX community! Collect, trade, and unlock special benefits.</p>
+        <div class="card-container">
+            <div class="card" onclick="showNftDetails('Astro Doge', '🚀')">
+                <h3 class="card-title">Astro Doge</h3>
+                <div style="font-size: 5rem; margin: 20px 0;">🚀</div>
+                <p>Rarity: Legendary</p>
+                <p>Price: 250,000 HDGX</p>
+                <button class="cta" style="font-size: 0.9rem; padding: 8px 15px;">View Details</button>
+            </div>
+            <div class="card" onclick="showNftDetails('Space Pup', '🐕')">
+                <h3 class="card-title">Space Pup</h3>
+                <div style="font-size: 5rem; margin: 20px 0;">🐕</div>
+                <p>Rarity: Rare</p>
+                <p>Price: 100,000 HDGX</p>
+                <button class="cta" style="font-size: 0.9rem; padding: 8px 15px;">View Details</button>
+            </div>
+            <div class="card" onclick="showNftDetails('Diamond Paws', '💎')">
+                <h3 class="card-title">Diamond Paws</h3>
+                <div style="font-size: 5rem; margin: 20px 0;">💎</div>
+                <p>Rarity: Epic</p>
+                <p>Price: 150,000 HDGX</p>
+                <button class="cta" style="font-size: 0.9rem; padding: 8px 15px;">View Details</button>
+            </div>
+            <div class="card" onclick="showNftDetails('Crypto Comet', '☄️')">
+                <h3 class="card-title">Crypto Comet</h3>
+                <div style="font-size: 5rem; margin: 20px 0;">☄️</div>
+                <p>Rarity: Uncommon</p>
+                <p>Price: 75,000 HDGX</p>
+                <button class="cta" style="font-size: 0.9rem; padding: 8px 15px;">View Details</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="teamSection">
+        <h2 class="section-title">Meet the Team</h2>
+        <div class="card-container">
+            <div class="team-member">
+                <div class="team-avatar">👨‍🚀</div>
+                <h3 class="team-name">Captain Doge</h3>
+                <p class="team-role">Founder & CEO</p>
+                <p>Crypto veteran with 7+ years experience</p>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">👩‍💻</div>
+                <h3 class="team-name">Crypto Jane</h3>
+                <p class="team-role">Lead Developer</p>
+                <p>Blockchain expert & smart contract wizard</p>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">🧙‍♂️</div>
+                <h3 class="team-name">Magic Mark</h3>
+                <p class="team-role">Marketing Guru</p>
+                <p>Master of viral campaigns & community growth</p>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">👨‍🎨</div>
+                <h3 class="team-name">Artistic Andy</h3>
+                <p class="team-role">NFT Designer</p>
+                <p>Creator of stunning digital art & collectibles</p>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">👩‍🔬</div>
+                <h3 class="team-name">Dr. Luna</h3>
+                <p class="team-role">Blockchain Researcher</p>
+                <p>Expert in tokenomics & decentralized systems</p>
+            </div>
+            <div class="team-member">
+                <div class="team-avatar">👨‍💼</div>
+                <h3 class="team-name">Biz Ben</h3>
+                <p class="team-role">Business Development</p>
+                <p>Strategic partnerships & exchange listings</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="airdropSection">
+        <h2 class="section-title">HyperDogeX Airdrop</h2>
+        <p>Join the HyperDogeX revolution and claim your free tokens! Complete the tasks below to participate.</p>
+        <div class="airdrop-form">
+            <div class="form-group">
+                <label for="walletAddress">Wallet Address</label>
+                <input type="text" id="walletAddress" class="form-control" placeholder="Enter your wallet address">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" class="form-control" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label>Airdrop Tasks</label>
+                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                    <input type="checkbox" id="task1" style="margin-right: 10px;">
+                    <label for="task1">Follow HyperDogeX on Twitter</label>
+                </div>
+                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                    <input type="checkbox" id="task2" style="margin-right: 10px;">
+                    <label for="task2">Join our Telegram group</label>
+                </div>
+                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                    <input type="checkbox" id="task3" style="margin-right: 10px;">
+                    <label for="task3">Retweet the pinned post</label>
+                </div>
+            </div>
+            <button class="cta" onclick="submitAirdrop()">Submit</button>
+            <div class="success-message" id="airdropSuccess">
+                Thank you! Your airdrop application has been submitted successfully. You will receive your HDGX tokens before the official launch!
+            </div>
+        </div>
+    </div>
+
+    <!-- NFT Details Modal -->
+    <div class="modal" id="nftModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeNftModal()">&times;</span>
+            <h2 class="section-title" id="nftTitle">NFT Details</h2>
+            <div class="nft-icon" id="nftIcon">🚀</div>
+            <p id="nftDescription">Loading details...</p>
+			<div style="margin-top: 20px; display: flex; justify-content: center;">
+                <button class="cta" onclick="mintNft()">Mint NFT</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to enter the futuristic world
+        function enterFuturisticWorld() {
+            // Hide the initial container
+            document.getElementById('mainContent').style.opacity = '0';
+            
+            setTimeout(() => {
+                document.getElementById('mainContent').style.display = 'none';
+                
+                // Show space container with stars and ships
+                document.getElementById('spaceContainer').style.display = 'block';
+                createSpaceElements();
+                
+                // Show navigation and ticker
+                document.getElementById('priceTicker').style.display = 'block';
+                document.getElementById('navMenu').style.display = 'flex';
+                
+                // Show home section
+                document.getElementById('homeSection').style.display = 'flex';
+            }, 1000);
+        }
+        
+        // Function to create space elements (stars and ships)
+        function createSpaceElements() {
+            const spaceContainer = document.getElementById('spaceContainer');
+            
+            // Create flying ships
+            for (let i = 0; i < 10; i++) {
+                const ship = document.createElement('div');
+                ship.className = 'ship';
+                ship.textContent = ['🚀', '🛸', '💫'][Math.floor(Math.random() * 3)];
+                ship.style.left = `${Math.random() * 100}%`;
+                ship.style.animationDuration = `${8 + Math.random() * 10}s`;
+                ship.style.animationDelay = `${Math.random() * 5}s`;
+                spaceContainer.appendChild(ship);
+            }
+        }
+        
+        // Function to show different sections
+        function showSection(sectionName) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show selected section
+            document.getElementById(`${sectionName}Section`).style.display = 'flex';
+            
+            // Update active nav item
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Find the clicked nav item and make it active
+            const navItemsArray = Array.from(navItems);
+            const activeItem = navItemsArray.find(item => 
+                item.textContent.toLowerCase() === sectionName.toLowerCase());
+            if (activeItem) {
+                activeItem.classList.add('active');
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        // Function to copy contract address
+        function copyAddress() {
+            const address = "0x42069DOGE420690123456789ABCDEF0123456789";
+            navigator.clipboard.writeText(address).then(() => {
+                alert("Contract address copied to clipboard!");
+            }).catch(err => {
+                console.error('Could not copy text: ', err);
+            });
+        }
+        
+        // Function to show NFT details
+        function showNftDetails(name, icon) {
+            const modal = document.getElementById('nftModal');
+            const title = document.getElementById('nftTitle');
+            const nftIcon = document.getElementById('nftIcon');
+            const description = document.getElementById('nftDescription');
+            
+            title.textContent = name;
+            nftIcon.textContent = icon;
+            
+            // Set description based on NFT name
+            switch(name) {
+                case 'Astro Doge':
+                    description.innerHTML = `
+                        <p><strong>Astro Doge</strong> - The rarest NFT in our collection!</p>
+                        <p>Only 50 will ever exist. Holders get:</p>
+                        <ul style="text-align: left; margin-top: 10px; margin-bottom: 20px;">
+                            <li>5x airdrop multiplier</li>
+                            <li>Access to exclusive Discord channels</li>
+                            <li>Voting rights on future NFT designs</li>
+                            <li>1% of trading fees distributed among holders</li>
+                            <li>First access to future drops</li>
+                        </ul>
+                        <p>Price: 250,000 HDGX</p>
+                    `;
+                    break;
+                case 'Space Pup':
+                    description.innerHTML = `
+                        <p><strong>Space Pup</strong> - Man's best friend in space!</p>
+                        <p>Limited to 500 NFTs. Holders get:</p>
+                        <ul style="text-align: left; margin-top: 10px; margin-bottom: 20px;">
+                            <li>2x airdrop multiplier</li>
+                            <li>Special role in Discord</li>
+                            <li>Early access to staking platform</li>
+                            <li>Exclusive Space Pup merchandise</li>
+                        </ul>
+                        <p>Price: 100,000 HDGX</p>
+                    `;
+                    break;
+                case 'Diamond Paws':
+                    description.innerHTML = `
+                        <p><strong>Diamond Paws</strong> - For the true HODLers!</p>
+                        <p>Limited to 200 NFTs. Holders get:</p>
+                        <ul style="text-align: left; margin-top: 10px; margin-bottom: 20px;">
+                            <li>3x airdrop multiplier</li>
+                            <li>Reduced trading fees</li>
+                            <li>Exclusive NFT airdrops</li>
+                            <li>Access to private investment groups</li>
+                            <li>Private calls with the team</li>
+                        </ul>
+                        <p>Price: 150,000 HDGX</p>
+                    `;
+                    break;
+                case 'Crypto Comet':
+                    description.innerHTML = `
+                        <p><strong>Crypto Comet</strong> - Racing through the crypto universe!</p>
+                        <p>Limited to 1,000 NFTs. Holders get:</p>
+                        <ul style="text-align: left; margin-top: 10px; margin-bottom: 20px;">
+                            <li>1.5x airdrop multiplier</li>
+                            <li>Weekly token rewards</li>
+                            <li>Access to community events</li>
+                            <li>Comet merchandise discount</li>
+                        </ul>
+                        <p>Price: 75,000 HDGX</p>
+                    `;
+                    break;
+                default:
+                    description.textContent = "Details not available.";
+            }
+            
+            modal.style.display = 'flex';
+        }
+        
+        // Function to close NFT modal
+        function closeNftModal() {
+            document.getElementById('nftModal').style.display = 'none';
+        }
+        
+        // Function to mint NFT (simulate)
+        function mintNft() {
+            alert("NFT minting will be available after token launch!");
+        }
+        
+        // Function to submit airdrop
+        function submitAirdrop() {
+            const walletAddress = document.getElementById('walletAddress').value;
+            const email = document.getElementById('email').value;
+            const task1 = document.getElementById('task1').checked;
+            const task2 = document.getElementById('task2').checked;
+            const task3 = document.getElementById('task3').checked;
+            
+            // Simple validation
+            if (!walletAddress || !email) {
+                alert("Please fill in all required fields!");
+                return;
+            }
+            
+            if (!task1 || !task2 || !task3) {
+                alert("Please complete all tasks to qualify for the airdrop!");
+                return;
+            }
+            
+            // Show success message
+            document.getElementById('airdropSuccess').style.display = 'block';
+            
+            // Clear form
+            document.getElementById('walletAddress').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('task1').checked = false;
+            document.getElementById('task2').checked = false;
+            document.getElementById('task3').checked = false;
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                document.getElementById('airdropSuccess').style.display = 'none';
+            }, 5000);
+        }
+        
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('nftModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        // Event listener for escape key to close modal
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                document.getElementById('nftModal').style.display = 'none';
+            }
+        });
+        
+        // Apply random animation delays to ticker items
+        document.addEventListener('DOMContentLoaded', function() {
+            const tickerItems = document.querySelectorAll('.ticker-item');
+            tickerItems.forEach(item => {
+                const delay = Math.random() * 2;
+                item.style.animationDelay = `${delay}s`;
+            });
+        });
+        
+        // Add floating animation to cards
+        const cards = document.querySelectorAll('.card, .team-member');
+        cards.forEach(card => {
+            card.style.animationDuration = `${3 + Math.random() * 2}s`;
+            card.style.animationDelay = `${Math.random() * 2}s`;
+        });
+    </script>
+</body>
+</html>
